@@ -1,4 +1,5 @@
-import random  # Ensure random module is imported
+import streamlit as st
+import random
 
 def simulate_megamillions(total_balls, num_drawn, mega_ball_range):
     """
@@ -29,15 +30,17 @@ def simulate_megamillions(total_balls, num_drawn, mega_ball_range):
     
     return drawn_balls, mega_ball
 
-# Example usage in Streamlit app
-import streamlit as st
-
 # Streamlit interface to set parameters
+st.title("Mega Millions Simulation")
+
 total_balls = st.number_input("Total number of balls", min_value=1, value=70)
 num_drawn = st.number_input("Number of balls to draw", min_value=1, value=5)
 mega_ball_range = st.number_input("Range for Mega Ball", min_value=1, value=25)
 
 if st.button("Generate Lottery Numbers"):
-    drawn_balls, mega_ball = simulate_megamillions(total_balls, num_drawn, mega_ball_range)
-    st.write("Drawn Balls:", drawn_balls)
-    st.write("Mega Ball:", mega_ball)
+    try:
+        drawn_balls, mega_ball = simulate_megamillions(total_balls, num_drawn, mega_ball_range)
+        st.write("Drawn Balls:", drawn_balls)
+        st.write("Mega Ball:", mega_ball)
+    except Exception as e:
+        st.error(f"An error occurred: {e}")
