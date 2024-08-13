@@ -1,3 +1,5 @@
+import random  # Ensure random module is imported
+
 def simulate_megamillions(total_balls, num_drawn, mega_ball_range):
     """
     Simulates a Mega Millions draw with a separate Mega Ball.
@@ -27,11 +29,15 @@ def simulate_megamillions(total_balls, num_drawn, mega_ball_range):
     
     return drawn_balls, mega_ball
 
-# Example usage:
-total_balls = 70       # Total balls in the main draw
-num_drawn = 5          # Number of balls to be drawn
-mega_ball_range = 25   # Range for Mega Ball
+# Example usage in Streamlit app
+import streamlit as st
 
-drawn_balls, mega_ball = simulate_megamillions(total_balls, num_drawn, mega_ball_range)
-print("Drawn Balls:", drawn_balls)
-print("Mega Ball:", mega_ball)
+# Streamlit interface to set parameters
+total_balls = st.number_input("Total number of balls", min_value=1, value=70)
+num_drawn = st.number_input("Number of balls to draw", min_value=1, value=5)
+mega_ball_range = st.number_input("Range for Mega Ball", min_value=1, value=25)
+
+if st.button("Generate Lottery Numbers"):
+    drawn_balls, mega_ball = simulate_megamillions(total_balls, num_drawn, mega_ball_range)
+    st.write("Drawn Balls:", drawn_balls)
+    st.write("Mega Ball:", mega_ball)
